@@ -31,17 +31,12 @@ public class Remover {
         }
         System.out.println("These names were found: ");
         for (int jj = 0; jj < toRemoveNames.size(); jj++) {
-            System.out.printf("\n[%d] %s", jj, toRemoveNames.get(jj));
+            System.out.printf("\n[%d] %s", jj, capitalizeFirst(toRemoveNames.get(jj)));
         }
         if (indices.size() == 0) {
             System.out.println("No names were found.");
         } else {
-            System.out.print("\nWhich name would you like to remove? ");
-            int wantToRemove = console.nextInt();
-            while (wantToRemove >=indices.size() || wantToRemove < 0) {
-                System.out.print("Enter an integer between 0 and " + (indices.size() - 1) + ": ");
-                wantToRemove = console.nextInt();
-            }
+            int wantToRemove = Inputter.getNumber(console, "\nWhich name would you like to remove? ", indices.size() -1);
             int index = indices.get(wantToRemove);
             names.remove(index);
             printNewNames(names);
@@ -62,4 +57,18 @@ public class Remover {
         }
         return names;
     }
+
+    private String capitalizeFirst(String name) {
+        Scanner nameScan = new Scanner(name);
+        String capitalized;
+        String firstName = nameScan.next();
+        capitalized = ("" + firstName.charAt(0)).toUpperCase();
+        capitalized = capitalized + firstName.substring(1, firstName.length()) + " ";
+        String lastName = nameScan.next();
+        capitalized = capitalized + (""+ lastName.charAt(0)).toUpperCase();
+        capitalized = capitalized + lastName.substring(1, lastName.length());
+        return capitalized;
+
+    }
+
 }

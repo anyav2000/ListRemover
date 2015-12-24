@@ -58,5 +58,31 @@ public class Inputter {
         }
         return output;
     }
+
+    public static int getNumber(Scanner console, String prompt, int max) {
+        System.out.print(prompt);
+        int input = 0;
+        boolean keepRunning = true;
+        while (keepRunning){
+            if (!console.hasNextInt()) {
+                System.out.print("Input is not valid, you need to enter a number between 0 and " + max +".");
+                System.out.print(prompt);
+                console.next();
+                keepRunning = true;
+            }
+            else if (console.hasNextInt()) {
+                input = console.nextInt();
+                if (input < 0 || input > max) {
+                    System.out.print("Input is not valid, you need to enter a number between 0 and " + max +".");
+                    System.out.print(prompt);
+                    console.next();
+                    keepRunning = true;
+                } else {
+                    keepRunning = false;
+                }
+            }
+        }
+        return input;
+    }
 }
 
