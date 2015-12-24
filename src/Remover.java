@@ -73,8 +73,6 @@ public class Remover {
         return capitalized;
 
     }
-<<<<<<< HEAD
-=======
 
     private int getNumber(Scanner console, String prompt, int max) {
         while(true) {
@@ -90,5 +88,4 @@ public class Remover {
             System.out.print("Input is not valid. Enter a number between 0 and " + max + ".");
         }
     }
->>>>>>> origin/master
 }
