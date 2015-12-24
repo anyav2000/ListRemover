@@ -36,7 +36,10 @@ public class Remover {
         if (indices.size() == 0) {
             System.out.println("No names were found.");
         } else {
-            int wantToRemove = Inputter.getNumber(console, "\nWhich name would you like to remove? ", indices.size() -1);
+            int wantToRemove = 0;
+            if(indices.size() > 1) {
+                wantToRemove = getNumber(console, "\nWhich name would you like to remove? ", indices.size());
+            }
             int index = indices.get(wantToRemove);
             names.remove(index);
             printNewNames(names);
@@ -71,4 +74,18 @@ public class Remover {
 
     }
 
+    private int getNumber(Scanner console, String prompt, int max) {
+        while(true) {
+            System.out.print(prompt);
+            String input = console.next();
+            try {
+                int index = Integer.parseInt(input);
+                if(index >= 0 && index < max)
+                    return index;
+            }
+            catch(NumberFormatException e){
+            }
+            System.out.print("Input is not valid. Enter a number between 0 and " + max + ".");
+        }
+    }
 }
