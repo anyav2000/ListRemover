@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.*;
 
 public class Remover {
+
     private final String toRemove;
     private final Scanner fileScanner;
     private final PrintStream outputStream;
@@ -21,27 +22,31 @@ public class Remover {
         ArrayList<String> names = getNames();
         ArrayList<Integer> indices = new ArrayList<>(0);
         ArrayList<String> toRemoveNames = new ArrayList<>(0);
+
         for (int ii = 0; ii < names.size(); ii++) {
             String name = names.get(ii).toLowerCase();
             int place = name.indexOf(toRemove);
             if (place != -1) {
-                toRemoveNames.add(name);
+                toRemoveNames.add(names.get(ii));
                 indices.add(ii);
             }
         }
-        System.out.println("These names were found: ");
-        for (int jj = 0; jj < toRemoveNames.size(); jj++) {
-            System.out.printf("\n[%d] %s", jj, capitalizeFirst(toRemoveNames.get(jj)));
-        }
+
         if (indices.size() == 0) {
             System.out.println("No names were found.");
-        } else {
+        }
+        else {
+            System.out.println("These names were found: ");
+            for (int jj = 0; jj < toRemoveNames.size(); jj++) {
+                System.out.printf("\n[%d] %s", jj, toRemoveNames.get(jj));
+            }
+
             int wantToRemove = 0;
             if(indices.size() > 1) {
                 wantToRemove = getNumber(console, "\nWhich name would you like to remove? ", indices.size());
             }
-            int index = indices.get(wantToRemove);
-            names.remove(index);
+
+            names.remove((int)indices.get(wantToRemove));
             printNewNames(names);
             System.out.println("Success!");
         }
@@ -59,19 +64,6 @@ public class Remover {
             names.add(fileScanner.nextLine());
         }
         return names;
-    }
-
-    private String capitalizeFirst(String name) {
-        Scanner nameScan = new Scanner(name);
-        String capitalized;
-        String firstName = nameScan.next();
-        capitalized = ("" + firstName.charAt(0)).toUpperCase();
-        capitalized = capitalized + firstName.substring(1, firstName.length()) + " ";
-        String lastName = nameScan.next();
-        capitalized = capitalized + (""+ lastName.charAt(0)).toUpperCase();
-        capitalized = capitalized + lastName.substring(1, lastName.length());
-        return capitalized;
-
     }
 
     private int getNumber(Scanner console, String prompt, int max) {
