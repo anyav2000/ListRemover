@@ -34,19 +34,32 @@ public class Remover {
 
         if (indices.size() == 0) {
             System.out.println("No names were found.");
-        }
-        else {
+        } else if (indices.size() == 1){
+            System.out.println("These names were found: ");
+            System.out.printf("\n[%d] %s", 0, toRemoveNames.get(0));
+            names.remove((int) indices.get(0));
+            printNewNames(names);
+            System.out.println("\n\nSuccess!");
+        } else {
             System.out.println("These names were found: ");
             for (int jj = 0; jj < toRemoveNames.size(); jj++) {
                 System.out.printf("\n[%d] %s", jj, toRemoveNames.get(jj));
             }
+            System.out.printf("\n[%d] %s", toRemoveNames.size(), "Remove all");
 
-            int wantToRemove = 0;
+            int wantToRemove;
             if(indices.size() > 1) {
-                wantToRemove = getNumber(console, "\nWhich name would you like to remove? ", indices.size());
+                wantToRemove = getNumber(console, "\nWhich name would you like to remove? ", indices.size() + 1);
+                if (wantToRemove == indices.size()) {
+                    for (int gg = 0; gg < indices.size(); gg++) {
+                        names.remove(indices.get(gg) - gg);
+                    }
+                } else {
+                    names.remove((int)indices.get(wantToRemove));
+                }
             }
 
-            names.remove((int)indices.get(wantToRemove));
+
             printNewNames(names);
             System.out.println("Success!");
         }
